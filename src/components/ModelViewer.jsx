@@ -82,13 +82,14 @@ function ExplodingGroup({ children, exploding }) {
   return <group ref={groupRef}>{children}</group>;
 }
 
-export default function ModelViewer({ modelUrl }) {
+export default function ModelViewer({ modelUrl, colorHex, accentHex, matPbr, lensTint, exploded: propExploded, onToggleExplode }) {
   const orbitRef  = useRef();
   const spinRef   = useRef(false);
-  const [exploded,   setExploded]   = useState(false);
+  const [internalExploded, setInternalExploded] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
 
-  const handleExplode = () => setExploded(v => !v);
+  const exploded = propExploded !== undefined ? propExploded : internalExploded;
+  const handleExplode = onToggleExplode || (() => setInternalExploded(v => !v));
 
   const handleSpin = () => {
     const next = !spinRef.current;
@@ -106,7 +107,7 @@ export default function ModelViewer({ modelUrl }) {
   return (
     <div className="canvas-container">
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 42 }}
+        camera={{ position: [0, 0, 4.5], fov: 44 }}
         gl={{
           antialias: true,
           alpha: true,

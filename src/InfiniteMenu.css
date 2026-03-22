@@ -1,0 +1,75 @@
+#infinite-grid-menu-canvas {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  outline: none;
+}
+#infinite-grid-menu-canvas:active {
+  cursor: grab;
+}
+.face-title {
+  user-select: none;
+  position: absolute;
+  font-weight: 900;
+  font-size: 1.6rem;
+  left: 1.2em;
+  top: 50%;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.face-title.active {
+  opacity: 1;
+  transform: translate(10%, -50%);
+  pointer-events: auto;
+  transition: 0.5s ease;
+}
+.face-title.inactive {
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.1s ease;
+}
+.face-description {
+  user-select: none;
+  position: absolute;
+  max-width: 12ch;
+  top: 50%;
+  font-size: 0.85rem;
+  right: 1%;
+  color: rgba(255, 255, 255, 0.6);
+  transform: translate(0, -50%);
+}
+.face-description.active {
+  opacity: 1;
+  transform: translate(-60%, -50%);
+  pointer-events: auto;
+  transition: 0.5s ease;
+}
+.face-description.inactive {
+  pointer-events: none;
+  transform: translate(-40%, -50%);
+  opacity: 0;
+  transition: 0.1s ease;
+}
+@media (max-width: 1200px) {
+  .face-title {
+    font-size: 1.3rem;
+    left: 0.8em;
+  }
+  .face-description {
+    font-size: 0.75rem;
+    max-width: 10ch;
+  }
+}
+@media (max-width: 900px) {
+  .face-title {
+    font-size: 1rem;
+    left: 0.5em;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  }
+  .face-description {
+    font-size: 0.65rem;
+    max-width: 8ch;
+  }
+}

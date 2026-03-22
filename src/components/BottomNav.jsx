@@ -22,6 +22,14 @@ const TABS = [
     ),
   },
   {
+    label: 'AI Chat',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
+  },
+  {
     label: 'AI Scanner',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -35,7 +43,7 @@ const TABS = [
     ),
   },
   {
-    label: 'Our Impact',
+    label: 'Impact',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -45,52 +53,22 @@ const TABS = [
 ];
 
 export default function BottomNav({ activePage, setActivePage }) {
-  const [hoveredIdx, setHoveredIdx] = useState(null);
-
   return (
     <div className="bottom-nav-wrap">
       <div className="bottom-nav-bar">
         {TABS.map((tab, i) => {
           const isActive = activePage === i;
           return (
-            <motion.button
+            <button
               key={tab.label}
-              className="bottom-tab"
+              className={`bottom-tab ${isActive ? "active" : ""}`}
               onClick={() => setActivePage(i)}
-              onHoverStart={() => setHoveredIdx(i)}
-              onHoverEnd={() => setHoveredIdx(null)}
-              animate={{
-                width: isActive ? 'auto' : 44,
-                backgroundColor: isActive
-                  ? 'rgba(255,255,255,0.18)'
-                  : hoveredIdx === i
-                    ? 'rgba(255,255,255,0.08)'
-                    : 'transparent',
-              }}
-              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              aria-label={tab.label}
             >
-              <motion.span
-                className="bottom-tab-icon"
-                animate={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.4)' }}
-                transition={{ duration: 0.2 }}
-              >
+              <span className="bottom-tab-icon" style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.65)' }}>
                 {tab.icon}
-              </motion.span>
-
-              <AnimatePresence>
-                {isActive && (
-                  <motion.span
-                    className="bottom-tab-label"
-                    initial={{ opacity: 0, width: 0, marginLeft: 0 }}
-                    animate={{ opacity: 1, width: 'auto', marginLeft: 7 }}
-                    exit={{ opacity: 0, width: 0, marginLeft: 0 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  >
-                    {tab.label}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.button>
+              </span>
+            </button>
           );
         })}
       </div>
